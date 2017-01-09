@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+set -eu
+
+SERVICE_NAME=`basename $(dirname $(dirname $(readlink -f $0)))`
+LOG_DIR=/var/log/runit/${SERVICE_NAME}
+USER=root
+GROUP=root
+
+# Create log dir and fix owner & mode
+mkdir -p ${LOG_DIR}
+chown ${USER}:${GROUP} ${LOG_DIR}
+chmod 700 ${LOG_DIR}
+
+exec /usr/bin/chpst -u ${USER} /usr/bin/svlogd -tt ${LOG_DIR}
