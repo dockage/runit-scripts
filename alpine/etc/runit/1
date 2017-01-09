@@ -3,4 +3,4 @@ set -eu
 
 chmod 100 /etc/runit/stopit
 
-/bin/run-parts --verbose --exit-on-error /etc/runit/1.d || exit 100
+/bin/run-parts --exit-on-error /etc/runit/1.d || exit 100
