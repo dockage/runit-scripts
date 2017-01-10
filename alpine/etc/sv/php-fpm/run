@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+exec 2>&1
+
+DAEMON=/usr/bin/php-fpm
+
+test -x ${DAEMON} || (echo 'php-fpm has not installed.' && exit 1)
+${DAEMON} --test || (echo 'php-fpm config has error.' && exit 1)
+
+exec ${DAEMON} --nodaemonize --force-stderr --fpm-config /etc/php5/php-fpm.conf
