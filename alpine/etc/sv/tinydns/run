@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+set -eu
+
+exec 2>&1
+
+DAEMON=/usr/bin/tinydns
+
+/sbin/chpst -U tinydns:tinydns ${DAEMON}
