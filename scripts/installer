@@ -6,7 +6,7 @@ DEPENDENCIES=curl
 INSTALL_COMMAND='apk --no-cache add'
 REMOVE_COMMAND='apk del'
 
-if [ "$ID" == 'debian' ]; then
+if [ "$ID" = 'debian' ]; then
     INSTALL_COMMAND='apt-get install -y'
     REMOVE_COMMAND='apt-get remove --purge'
 fi
