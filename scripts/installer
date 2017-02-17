@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+set -eu
+. /etc/*-release
+
+DEPENDENCIES=curl
+INSTALL_COMMAND='apk --no-cache add'
+REMOVE_COMMAND='apk del'
+
+if [ "$ID" == 'debian' ]; then
+    INSTALL_COMMAND='apt-get install -y'
+    REMOVE_COMMAND='apt-get remove --purge'
+fi
+
+${INSTALL_COMMAND} ${DEPENDENCIES}
+curl -SL https://api.github.com/repos/dockage/runit-scripts/tarball > runit-scripts.tar.gz
+
+tar -xzvf runit-scripts.tar.gz
+cp -ar /dockage-runit-scripts-*/${ID}/etc/* /etc
+cp -ar /dockage-runit-scripts-*/scripts/usr/* /usr
+
+# Clean up
+rm -rf /dockage-runit-scripts-* runit-scripts.tar.gz
+${REMOVE_COMMAND} ${DEPENDENCIES}

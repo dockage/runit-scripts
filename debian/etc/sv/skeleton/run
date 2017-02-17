@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+set -eu
+
+exec 2>&1
+
+COMMAND=daemon
+USER=root
+
+exec /usr/bin/chpst -u ${USER} ${COMMAND}
