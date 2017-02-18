@@ -9,7 +9,7 @@ DAEMON=/usr/sbin/nginx
 test -x ${DAEMON} || exit 0
 
 # Test nginx configuration
-${COMMAND} -t -q || exit 0
+${DAEMON} -t -q || exit 0
 
 mkdir -p /var/log/nginx
 
