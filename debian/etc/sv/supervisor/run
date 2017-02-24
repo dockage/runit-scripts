@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+set -eu
+
+exec 2>&1
+
+DAEMON=/usr/bin/supervisord
+
+# Include supervisor defaults if available
+if [ -f /etc/default/supervisor ] ; then
+    . /etc/default/supervisor
+fi
+DAEMON_OPTS="-nc /etc/supervisor/supervisord.conf $DAEMON_OPTS"
+
+mkdir -p /var/log/supervisor
+test -x ${DAEMON} || exit 0
+
+exec ${DAEMON} ${DAEMON_OPTS}

@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+set -eu
+
+exec 2>&1
+
+DAEMON=/usr/sbin/cron
+EXTRA_OPTS=${EXTRA_OPTS:-}
+
+test -x ${DAEMON} || exit 0
+
+[ -r /etc/default/cron ] && . /etc/default/cron
+
+exec ${DAEMON} -f ${EXTRA_OPTS}
