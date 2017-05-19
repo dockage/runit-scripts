@@ -4,6 +4,7 @@ set -eu
 USAGE='Usage:\nrunit-enable-service SERVICE_NAME';
 SERVICE_AVAILABLE_DIR=/etc/sv
 SERVICE_ENABLED_DIR=/service
+AUTO_START=${AUTO_START:-'true'}
 
 if [ "$#" = 0 ]
 then
@@ -23,6 +24,13 @@ if [ ! -d "$SERVICE_ENABLED_DIR" ]
 then
     echo "Destination directory \"$SERVICE_ENABLED_DIR\" doesn't exist."
     exit 3
+fi
+
+if [ "$AUTO_START" != 'true' ]
+then
+    touch ${SERVICE_AVAILABLE_DIR}/${SERVICE_NAME}/down
+else
+    rm -rf ${SERVICE_AVAILABLE_DIR}/${SERVICE_NAME}/down
 fi
 
 ln -sf ${SERVICE_AVAILABLE_DIR}/${SERVICE_NAME} ${SERVICE_ENABLED_DIR}
