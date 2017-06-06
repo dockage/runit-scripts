@@ -30,7 +30,7 @@ if [ "$AUTO_START" != 'true' ]
 then
     touch ${SERVICE_AVAILABLE_DIR}/${SERVICE_NAME}/down
 
-    if [ ! -d "$SERVICE_AVAILABLE_DIR/$SERVICE_NAME/log" ]
+    if [ -d "$SERVICE_AVAILABLE_DIR/$SERVICE_NAME/log" ]
     then
         touch ${SERVICE_AVAILABLE_DIR}/${SERVICE_NAME}/log/down
     fi
