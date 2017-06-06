@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
-LOG_DIR=/var/log/runit/supervisor
+LOG_DIR=/var/log/runit/php-fpm
 USER=root
 GROUP=root
 

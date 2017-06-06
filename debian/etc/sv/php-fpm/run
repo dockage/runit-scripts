@@ -4,8 +4,16 @@ set -eu
 exec 2>&1
 
 DAEMON=/usr/sbin/php5-fpm
-
+FPM_CONFIG=/etc/php5/fpm/php-fpm.conf
 test -x ${DAEMON} || exit 0
+
+# Disable pid file creation
+sed -i 's/pid =/;pid =/g' ${FPM_CONFIG}
+
+# Disable error log file
+sed -i 's#error_log = /var/log/php5-fpm.log#error_log = /proc/self/fd/2#g' ${FPM_CONFIG}
+
+# Checking php-fpm config validation
 /usr/lib/php5/php5-fpm-checkconf || (echo 'php5-fpm config has error.' && exit 1)
 
-exec ${DAEMON} --nodaemonize --force-stderr --fpm-config /etc/php5/fpm/php-fpm.conf
+exec ${DAEMON} --nodaemonize --force-stderr --fpm-config ${FPM_CONFIG}
