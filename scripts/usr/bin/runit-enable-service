@@ -29,8 +29,14 @@ fi
 if [ "$AUTO_START" != 'true' ]
 then
     touch ${SERVICE_AVAILABLE_DIR}/${SERVICE_NAME}/down
+
+    if [ ! -d "$SERVICE_AVAILABLE_DIR/$SERVICE_NAME/log" ]
+    then
+        touch ${SERVICE_AVAILABLE_DIR}/${SERVICE_NAME}/log/down
+    fi
 else
     rm -rf ${SERVICE_AVAILABLE_DIR}/${SERVICE_NAME}/down
+    rm -rf ${SERVICE_AVAILABLE_DIR}/${SERVICE_NAME}/log/down
 fi
 
 ln -sf ${SERVICE_AVAILABLE_DIR}/${SERVICE_NAME} ${SERVICE_ENABLED_DIR}

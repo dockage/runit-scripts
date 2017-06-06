@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+set -eu
+
+LOG_DIR=/var/log/runit/nginx
+USER=root
+GROUP=root
+
+# Create log dir and fix owner & mode
+mkdir -p ${LOG_DIR}
+chown ${USER}:${GROUP} ${LOG_DIR}
+chmod 700 ${LOG_DIR}
+
+exec /usr/bin/chpst -u ${USER} /usr/bin/svlogd -tt ${LOG_DIR}
