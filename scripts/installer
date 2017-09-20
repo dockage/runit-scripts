@@ -1,6 +1,11 @@
 #!/usr/bin/env sh
 set -eu
-. /etc/*-release
+
+if [ -f /etc/alpine-release ] ; then
+    ID='alpine'
+else
+    . /etc/*-release
+fi
 
 DEPENDENCIES=curl
 INSTALL_COMMAND='apk --no-cache add'
